@@ -1,5 +1,19 @@
-/// \type_list.hpp
+/// \file type_list.hpp
 /// \brief Implements type_list: a compile-time collection of types.
+//
+// Copyright 2022 Paul Bowen-Huggett
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #ifndef TYPE_LIST_HPP
 #define TYPE_LIST_HPP
@@ -128,8 +142,8 @@ inline constexpr bool equal_v = equal<TypeList1, TypeList2>::value;
 
 // transform
 // ~~~~~~~~~
-/// Applies UnaryOperation to a type list and yields a new list containing the
-/// the transformed members.
+/// Applies UnaryOperation to each of the members of a type list and yields a
+/// new list containing the the transformed members.
 template <typename TypeList, typename UnaryOperation>
 TYPE_LIST_CXX20REQUIRES ((is_type_list<TypeList> &&
                           is_unary_operation<UnaryOperation, TypeList>))
