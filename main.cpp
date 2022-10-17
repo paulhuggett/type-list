@@ -1,5 +1,5 @@
 #include <algorithm>
-#include <iostream>
+#include <cstdio>
 
 #include "type_list.hpp"
 
@@ -36,10 +36,10 @@ public:
 };
 
 void show_type_characteristics () {
-  using types = type_list::make_t<char, long long, int, unsigned>;
-  std::cout << "size=" << type_characteristics<types>::largest::value
-            << ", align=" << type_characteristics<types>::most_aligned::value
-            << '\n';
+  using characteristics =
+      type_characteristics<type_list::make_t<char, long long, int, unsigned>>;
+  std::printf ("size=%zu align=%zu\n", characteristics::largest::value,
+               characteristics::most_aligned::value);
 }
 
 struct add_one {
@@ -79,12 +79,13 @@ int main () {
       "lists should not be equal: the second has one extra member");
   static_assert (!type_list::equal_v<numbers, plus_one>);
 
-  std::cout << "length of types=" << type_list::size_v<numbers> << '\n';
-  std::cout << numbers::first::value << ' ' << numbers::rest::first::value
-            << ' ' << numbers::rest::rest::first::value << '\n';
-  std::cout << "length of plusone=" << type_list::size_v<plus_one> << '\n';
-  std::cout << plus_one::first::value << ' ' << plus_one::rest::first::value
-            << ' ' << plus_one::rest::rest::first::value << '\n';
+  std::printf ("length of types=%zu\n", type_list::size_v<numbers>);
+  std::printf ("%u %u %u\n", numbers::first::value, numbers::rest::first::value,
+               numbers::rest::rest::first::value);
+  std::printf ("length of plusone=%zu\n", type_list::size_v<plus_one>);
+  std::printf ("%u %u %u\n", plus_one::first::value,
+               plus_one::rest::first::value,
+               plus_one::rest::rest::first::value);
 
   show_type_characteristics ();
 }
